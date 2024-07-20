@@ -1,0 +1,102 @@
+@import url(https://fonts.googleapis.com/css?family=Michroma:regular);
+
+:root {
+  --mainColor: #090C31;
+  --secondColor: #F9544C;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+
+.top {
+  background-color: var(--secondColor);
+  min-height: 50vh;
+}
+
+.bottom {
+  background-color: var(--mainColor);
+  min-height: 50vh;
+}
+
+.calcContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: #15173C;
+  width: 400px;
+  max-width: 80%;
+  height: 500px;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.524) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result {
+  /* border: 1px solid white; */
+  text-align: end;
+  height: 120px;
+  padding: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+  color: white;
+  border-radius: 5px;
+  font-family: 'MICHROMA';
+  font-size: 21px;
+  background-color: color-mix(in srgb, var(--mainColor), rgb(109, 105, 123));
+
+  @media screen and (width <=500px) {
+    font-size: 16px;
+  }
+}
+
+
+
+.btns {
+  width: 100%;
+  height: calc(500px - 150px);
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(4, 1fr);
+
+  & .btn {
+    border: 1px solid transparent;
+    border-radius: 6px;
+    align-content: center;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: color-mix(in srgb, #090C31 60%, rgb(109, 73, 207));
+    transition: 0.53s;
+    cursor: pointer;
+    user-select: none;
+    &:hover {
+      background-color: color-mix(in srgb, #090C31 50%, rgb(228, 12, 247));
+    }
+  }
+}
+
+.btn:nth-of-type(17) {
+  grid-column: 1 / span 2;
+}
+
+.btn:nth-of-type(16) {
+  grid-row: 4 / 6;
+  grid-column: 4 / 5;
+  background-color: var(--secondColor);
+  border-color: transparent;
+}
