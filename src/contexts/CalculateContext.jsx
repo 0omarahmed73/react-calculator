@@ -8,10 +8,9 @@ const CalculateProvider = ({ children }) => {
   const [infinityResult, setInfinity] = useState(false);
   const [operator, setOperator] = useState("");
   const reset = () => setResult("0");
-  const removeChar = () =>
-  {
+  const removeChar = () => {
     setResult((el) => (el !== "" && el != 0 ? el.slice(0, -1) : 0));
-  }
+  };
   const addBtnText = (text) => {
     if (!infinityResult) {
       setInfinity(false);
@@ -50,18 +49,20 @@ const CalculateProvider = ({ children }) => {
     if (operator !== "") {
       const firstNumber = Number(result.split(operator)[0]);
       const secondNumber = Number(result.split(operator)[1]);
-      setResult(
-        operator === "+"
-          ? firstNumber + secondNumber
-          : operator === "-"
-          ? firstNumber - secondNumber
-          : operator === "x"
-          ? firstNumber * secondNumber
-          : firstNumber / secondNumber
-      );
-      setResult((el) => Number(el).toFixed(1).toString());
-      setInfinity(result === Infinity ? true : false);
-      setDoneCalc(true);
+      if (firstNumber && secondNumber) {
+        setResult(
+          operator === "+"
+            ? firstNumber + secondNumber
+            : operator === "-"
+            ? firstNumber - secondNumber
+            : operator === "x"
+            ? firstNumber * secondNumber
+            : firstNumber / secondNumber
+        );
+        setResult((el) => Number(el).toFixed(1).toString());
+        setInfinity(result === Infinity ? true : false);
+        setDoneCalc(true);
+      }
     }
   };
   useEffect(() => {
