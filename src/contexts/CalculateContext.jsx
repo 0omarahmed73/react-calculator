@@ -4,28 +4,45 @@ export const CalculateContext = createContext();
 
 const CalculateProvider = ({ children }) => {
   const [result, setResult] = useState("0");
+  const [doneCalc, setDoneCalc] = useState(false);
+  const [infinityResult, setInfinity] = useState(false);
   const [operator, setOperator] = useState("");
   const reset = () => setResult("0");
-  const removeChar = () => setResult((el) => el.slice(0, -1));
+  const removeChar = () =>
+  {
+    setResult((el) => (el !== "" && el != 0 ? el.slice(0, -1) : 0));
+  }
   const addBtnText = (text) => {
-    if (!["AC", "DEL", "="].includes(text)) {
-      if (result == 0) {
-        if (["+", "/", "x", "-"].includes(text)) {
-          setResult(0);
+    if (!infinityResult) {
+      setInfinity(false);
+      if (doneCalc && !["AC", "DEL", "="].includes(text)) {
+        setResult((res) => {
+          setDoneCalc(false);
+          return ["/", "+", "-", "x"].includes(text)
+            ? (res += text)
+            : (res = text);
+        });
+      } else if (!["AC", "DEL", "="].includes(text)) {
+        if (result == 0) {
+          if (["+", "/", "x", "-"].includes(text)) {
+            setResult(0);
+          } else {
+            setResult(text);
+          }
+        } else if (
+          !result.includes("-") &&
+          !result.includes("+") &&
+          !result.includes("/") &&
+          !result.includes("x")
+        ) {
+          setResult((el) => (el += text));
         } else {
-          setResult(text);
+          setResult(
+            (el) => (el += ["/", "x", "+", "-"].includes(text) ? "" : text)
+          );
         }
-      } else if (
-        !result.includes("-") &&
-        !result.includes("+") &&
-        !result.includes("/") &&
-        !result.includes("x")
-      ) {
-        setResult((el) => (el += text));
       } else {
-        setResult(
-          (el) => (el += ["/", "x", "+", "-"].includes(text) ? "" : text)
-        );
+        setResult(text);
       }
     }
   };
@@ -42,7 +59,9 @@ const CalculateProvider = ({ children }) => {
           ? firstNumber * secondNumber
           : firstNumber / secondNumber
       );
-      setResult((el) => el.toString());
+      setResult((el) => Number(el).toFixed(1).toString());
+      setInfinity(result === Infinity ? true : false);
+      setDoneCalc(true);
     }
   };
   useEffect(() => {
