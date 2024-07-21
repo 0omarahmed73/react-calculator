@@ -60,7 +60,7 @@ const CalculateProvider = ({ children }) => {
             : firstNumber / secondNumber
         );
         setResult((el) => Number(el).toFixed(1).toString());
-        setInfinity(result === Infinity ? true : false);
+        setInfinity(result === Infinity);
         setDoneCalc(true);
       }
     }
